@@ -10,7 +10,7 @@ public class TestController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping
+    @GetMapping("/")
     public String hello() {
         return messageService.getMessage();
     }
