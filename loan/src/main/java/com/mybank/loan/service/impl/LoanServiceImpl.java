@@ -51,4 +51,23 @@ public class LoanServiceImpl implements ILoanService {
         );
         return LoanMapper.mapToLoanDto(loan, new LoanDto());
     }
+
+    @Override
+    public Boolean updateLoan(LoanDto loanDto) {
+        Loan loan = loanRepository.findByLoanNumber(loanDto.getLoanNumber()).orElseThrow(
+                () -> new ResourceNotFoundException("Loan", "LoanNumber", loanDto.getLoanNumber())
+        );
+        LoanMapper.mapToLoan(loanDto, loan);
+        loanRepository.save(loan);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteLoan(String mobileNumber) {
+        Loan loan = loanRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Loan", "mobileNumber", mobileNumber)
+        );
+        loanRepository.deleteById(loan.getLoanId());
+        return true;
+    }
 }

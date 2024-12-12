@@ -1,0 +1,18 @@
+services:
+  app:
+    image: 66406e4f6d8fbf78ee44a317fc973201d725db78e73faa9b4dea6207e8dd7881
+    build:
+      context: .
+    ports:
+      - "8080"
+    depends_on:
+      - db
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mybank
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
